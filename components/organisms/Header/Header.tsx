@@ -10,7 +10,7 @@ const Header: React.FC<HeaderProps> = ({ currentPage }) => {
   return (
     <header
       className={clsx(
-        "bg-transparent flex items-center justify-between w-full px-6 py-3"
+        "bg-transparent flex items-center justify-between w-full px-6 py-6"
       )}
     >
       {/* Left section */}
@@ -18,7 +18,7 @@ const Header: React.FC<HeaderProps> = ({ currentPage }) => {
         <Text size="small" className="text-gray-400">
           Pages / {currentPage}
         </Text>
-        <Title variant="h2">{currentPage}</Title>
+        <Text size="medium">{currentPage}</Text>
       </div>
 
       {/* Right section */}
