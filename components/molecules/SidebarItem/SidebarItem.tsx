@@ -6,15 +6,14 @@ import Link from "next/link";
 import { Icon } from "@/components/atoms/Icon/Icon";
 import Text from "@/components/atoms/Text/Text";
 
-
 import { SidebarItemProps } from "./SidebarItem.types";
-
 
 export const SidebarItem: React.FC<SidebarItemProps> = ({
   icon,
   label,
   href,
   active = false,
+  variant = "default",
 }) => {
   return (
     <Link href={href}>
@@ -23,10 +22,8 @@ export const SidebarItem: React.FC<SidebarItemProps> = ({
           active ? "bg-white/10" : "hover:bg-white/5"
         }`}
       >
-        <Icon icon={icon} size={20} />
-        <Text size="medium">
-          {label}
-        </Text>
+        <Icon icon={icon} size={20} variant={variant} />
+        <Text size="medium">{label}</Text>
       </div>
     </Link>
   );

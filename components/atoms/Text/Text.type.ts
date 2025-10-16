@@ -1,11 +1,6 @@
-
-export type TextSize = 'small' | 'medium' | 'large';
-
 export interface TextProps {
-  /** سایز متن */
-  size?: TextSize;
-  /** محتوای متنی */
-  children: React.ReactNode;
-  /** کلاس اضافی (اختیاری) */
+  size?: "small" | "medium" | "large";
+  color?: "white" | "gray" | "red";
   className?: string;
+  children: React.ReactNode;
 }

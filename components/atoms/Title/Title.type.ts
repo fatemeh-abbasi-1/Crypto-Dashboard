@@ -1,9 +1,6 @@
-export type TitleVariant = "h1" | "h2";
-
 export interface TitleProps {
-  variant?: TitleVariant;
-
-  children: React.ReactNode;
-
+  variant?: "h1" | "h2";
+  color?: "white" | "gray" | "red";
   className?: string;
+  children: React.ReactNode;
 }
