@@ -18,7 +18,7 @@ export const SidebarItem: React.FC<SidebarItemProps> = ({
   return (
     <Link href={href}>
       <div
-        className={`flex items-center gap-3 px-4 py-2 rounded-xl cursor-pointer transition-all duration-300 ${
+        className={`w-52 flex items-center gap-3 px-4 py-2 rounded-xl cursor-pointer transition-all duration-300 ${
           active ? "bg-white/10" : "hover:bg-white/5"
         }`}
       >

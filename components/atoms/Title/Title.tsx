@@ -16,7 +16,7 @@ export const Title: React.FC<TitleProps> = ({
   };
 
   const colorStyles: Record<typeof color, string> = {
-    white: "text-[var(--white)]",
+    white: "text-white",
     gray: "text-[var(--gray)]",
     red: "text-[var(--red)]",
   };

@@ -18,43 +18,66 @@ import Text from "@/components/atoms/Text/Text";
 
 export const Sidebar: React.FC = () => {
   return (
-    <aside className="bg-gradient-1 w-[264px] h-screen flex flex-col justify-between items-center pt-7">
-      <div>
-        <Title variant="h2" className="mb-6">
-          VISION UI FREE
-        </Title>
-        <Image
-          src={"./line.svg"}
-          alt="line-image"
-          width={200}
-          height={5}
-          className="mb-5"
+    <aside className="bg-gradient-1 w-[264px] h-screen flex flex-col items-center pt-7">
+      <Title variant="h2" className="mb-7">
+        VISION UI FREE
+      </Title>
+      <Image
+        src={"./line.svg"}
+        alt="line-image"
+        width={200}
+        height={5}
+        className="mb-5"
+      />
+      <div className="flex flex-col gap-1">
+        <SidebarItem
+          icon={HiOutlineHome}
+          label="Dashboard"
+          href="/dashboard"
+          active
+          variant="filled"
         />
-        <div className="flex flex-col gap-1">
-          <SidebarItem
-            icon={HiOutlineHome}
-            label="Dashboard"
-            href="/dashboard"
-            active
-            variant="filled"
-          />
-          <SidebarItem icon={HiOutlineChartBar} label="Tables" href="/tables" />
-          <SidebarItem
-            icon={HiOutlineCreditCard}
-            label="Billing"
-            href="/billing"
-            variant="filled"
-          />
-          <SidebarItem icon={HiOutlineCog} label="RTL" href="/rtl" />
-        </div>
+        <SidebarItem
+          icon={HiOutlineChartBar}
+          label="Tables"
+          href="/tables"
+          variant="filled"
+        />
+        <SidebarItem
+          icon={HiOutlineCreditCard}
+          label="Billing"
+          href="/billing"
+          variant="filled"
+        />
+        <SidebarItem
+          icon={HiOutlineCog}
+          label="RTL"
+          href="/rtl"
+          variant="filled"
+        />
+      </div>
 
-        <div className="mt-6 flex flex-col gap-1.5">
-          <Text className="ml-6">Account Page</Text>
+      <div className="mt-6 flex flex-col gap-1.5">
+        <Text className="ml-6">Account Page</Text>
 
-          <SidebarItem icon={HiOutlineUser} label="Profile" href="/profile" />
-          <SidebarItem icon={HiOutlineLogin} label="Sign In" href="/signin" />
-          <SidebarItem icon={HiOutlineUserAdd} label="Sign Up" href="/signup" />
-        </div>
+        <SidebarItem
+          icon={HiOutlineUser}
+          label="Profile"
+          href="/profile"
+          variant="filled"
+        />
+        <SidebarItem
+          icon={HiOutlineLogin}
+          label="Sign In"
+          href="/signin"
+          variant="filled"
+        />
+        <SidebarItem
+          icon={HiOutlineUserAdd}
+          label="Sign Up"
+          href="/signup"
+          variant="filled"
+        />
       </div>
     </aside>
   );
