@@ -1,6 +1,7 @@
 import React from "react";
-import { IconProps } from "./Icon.types";
 import clsx from "clsx";
+
+import { IconProps } from "./Icon.types";
 
 export const Icon: React.FC<IconProps> = ({
   icon: IconCmp,
@@ -12,11 +13,11 @@ export const Icon: React.FC<IconProps> = ({
     "flex items-center justify-center transition-colors duration-200 cursor-pointer";
 
   const variantStyles: Record<typeof variant, string> = {
-    default: "text-white/5",
+    default: "text-gray-300",
     filled: `
-      bg-white/5 
-      text-[var(--blue)] 
-      rounded-full p-2 
+      bg-white/5
+      text-[var(--blue)]
+      rounded-full p-2
       hover:bg-[var(--blue)] hover:text-white
     `,
   };

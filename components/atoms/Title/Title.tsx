@@ -4,7 +4,7 @@ import clsx from "clsx";
 
 export const Title: React.FC<TitleProps> = ({
   variant = "h1",
-  color = "white", // white | gray | red
+  color = "white",
   children,
   className,
 }) => {

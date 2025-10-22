@@ -6,6 +6,7 @@ import Link from "next/link";
 import { Icon } from "@/components/atoms/Icon/Icon";
 import Text from "@/components/atoms/Text/Text";
 
+
 import { SidebarItemProps } from "./SidebarItem.types";
 
 export const SidebarItem: React.FC<SidebarItemProps> = ({
