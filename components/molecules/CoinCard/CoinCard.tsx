@@ -1,35 +1,72 @@
+"use client";
+
 import React from "react";
+import Image from "next/image";
+import { motion } from "framer-motion";
 
 import Text from "@/components/atoms/Text/Text";
-import { Icon } from "@/components/atoms/Icon/Icon";
+import Title from "@/components/atoms/Title/Title";
+import { CoinCardProps } from "./CoinCard.type";
 
-import { CoinCardProps } from "./CoinCard.types";
+type AnimatedCoinCardProps = CoinCardProps & { index: number };
 
-export const CoinCard: React.FC<CoinCardProps> = ({
-  title,
-  amount,
-  percentChange,
-  icon: IconCmp,
+export const CoinCard: React.FC<AnimatedCoinCardProps> = ({
+  crypto,
+  index,
 }) => {
+  const { name, current_price, price_change_percentage_24h, image } = crypto;
+  const isPositive = Number(price_change_percentage_24h) >= 0;
+
   return (
-    <div className="bg-gradient-2 w-96 h-24 px-6 rounded-lg flex justify-between items-center">
+    <motion.div
+      className="
+        w-[400px] h-28 px-6 rounded-2xl flex justify-between items-center
+        bg-gradient-3 hover:scale-[1.02]
+        transition-transform duration-300 ease-in-out
+      "
+      initial={{ opacity: 0, scale: 0.98 }}
+      whileInView={{ opacity: 1, scale: 1 }}
+      transition={{
+        duration: 0.9, // 🕊 انیمیشن طولانی‌تر و آرام‌تر
+        delay: index * 0.18, // ⏳ تاخیر موجی آهسته‌تر
+        ease: "easeIn",
+      }}
+      viewport={{ once: true, amount: 0.3 }}
+    >
       <div className="flex flex-col gap-2">
-        <Text size="small">{title}</Text>
-        <div className="flex gap-2">
-          <Text size="large" className="font-bold">
-            {amount}
-          </Text>
+        <Text size="medium">{name}</Text>
+        <div className="flex items-center gap-2">
+          <Title variant="h2">${current_price.toLocaleString()}</Title>
           <Text
             size="small"
-            className={percentChange.includes("+") ? "green" : "red"}
+            className={isPositive ? "text-green-400" : "text-red-400"}
           >
-            {percentChange}%
+            {isPositive ? "+" : ""}
+            {price_change_percentage_24h.toFixed(2)}%
           </Text>
         </div>
       </div>
-
-      <Icon icon={IconCmp} size={24} variant="filled" />
-    </div>
+      {/* 
+      <motion.div
+        initial={{ rotate: -10, opacity: 0, scale: 0.8 }}
+        whileInView={{ rotate: 0, opacity: 1, scale: 1 }}
+        transition={{
+          duration: 0.8,
+          delay: index * 0.25 + 0.2, // کمی بعد از خود کارت
+          ease: "easeOut",
+        }}
+        viewport={{ once: true }}
+      > */}
+      <Image
+        width={40}
+        height={40}
+        src={image}
+        alt={name}
+        className="rounded-xl"
+      />
+      {/* </motion.div> */}
+    </motion.div>
   );
 };
+
 export default CoinCard;

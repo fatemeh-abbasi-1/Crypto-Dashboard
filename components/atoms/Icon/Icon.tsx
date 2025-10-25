@@ -16,9 +16,9 @@ export const Icon: React.FC<IconProps> = ({
     default: "text-gray-300",
     filled: `
       bg-white/5
-      text-[var(--blue)]
+      text-blue-200
       rounded-full p-2
-      hover:bg-[var(--blue)] hover:text-white
+      hover:bg-blue hover:text-white
     `,
   };
 

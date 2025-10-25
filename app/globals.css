@@ -1,42 +1,24 @@
 @import "tailwindcss";
 
 :root {
-  /* 🌈 Gradients */
   --gradient-1: linear-gradient(135deg, #060b26 94%, #1a1f37 0%);
   --gradient-2: linear-gradient(135deg, #060b28 74%, #0a0e23 71%);
-
-  --blue: #0075ff; /* آبی برای دکمه‌ها، آیکن‌ها */
-  --green: #01b574; /* سبز برای دکمه‌های تأیید */
-  --red: #f53c2b; /* قرمز برای آیکن‌ها یا هشدار */
-  --gray: #a0aec0; /* متن‌های کم‌رنگ */
-  --navy-dark: #060b26; /* رنگ پس‌زمینه اصلی */
-  --navy-mid: #1a1f37; /* رنگ میانی برای کارت‌ها یا چارت‌ها */
-  --navy-deep: #0a0e23; /* رنگ تیره‌تر برای عمق بک‌گراند */
+  --gradient-3: linear-gradient(
+    164deg,
+    rgba(222, 200, 200, 1) 0%,
+    rgba(15, 18, 38, 1) 0%,
+    rgba(51, 56, 79, 1) 57%
+  );
 }
 
-/* 🧱 Helper Classes */
 .bg-gradient-1 {
   background: var(--gradient-1);
 }
 .bg-gradient-2 {
   background: var(--gradient-2);
 }
-
-.bg-blue {
-  background-color: var(--blue);
-}
-.bg-green {
-  background-color: var(--green);
-}
-.bg-red {
-  background-color: var(--red);
-}
-
-.gray {
-  color: var(--gray);
-}
-.red {
-  color: var(--red);
+.bg-gradient-3 {
+  background: var(--gradient-3);
 }
 
 html,
@@ -50,4 +32,5 @@ body {
 body {
   font-family: Arial, Helvetica, sans-serif;
   background: url("/background.svg") no-repeat center center fixed !important;
+  overflow-y: hidden;
 }

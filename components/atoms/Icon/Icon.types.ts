@@ -1,7 +1,5 @@
-import { IconType } from "react-icons";
-
 export interface IconProps {
-  icon: IconType;
+  icon: React.ElementType;
   size?: number;
   variant?: "default" | "filled";
   className?: string;

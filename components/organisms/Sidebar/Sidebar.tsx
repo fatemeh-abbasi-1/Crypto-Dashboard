@@ -18,7 +18,7 @@ import Text from "@/components/atoms/Text/Text";
 
 export const Sidebar: React.FC = () => {
   return (
-    <aside className="bg-gradient-1 w-[264px] h-screen flex flex-col items-center pt-7">
+    <aside className="bg-gradient-1 w-[280px] h-screen flex flex-col items-center pt-7">
       <Title variant="h2" className="mb-7">
         VISION UI FREE
       </Title>
@@ -32,15 +32,15 @@ export const Sidebar: React.FC = () => {
       <div className="flex flex-col gap-1">
         <SidebarItem
           icon={HiOutlineHome}
-          label="Dashboard"
-          href="/dashboard"
+          label="Home"
+          href="/"
           active
           variant="filled"
         />
         <SidebarItem
           icon={HiOutlineChartBar}
-          label="Tables"
-          href="/tables"
+          label="Coins"
+          href="/coins"
           variant="filled"
         />
         <SidebarItem

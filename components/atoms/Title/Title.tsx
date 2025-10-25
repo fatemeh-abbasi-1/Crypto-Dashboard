@@ -11,14 +11,14 @@ export const Title: React.FC<TitleProps> = ({
   const baseStyle = "leading-tight";
 
   const variantStyles: Record<typeof variant, string> = {
-    h1: "text-3xl font-bold",
+    h1: "text-5xl font-bold",
     h2: "text-2xl font-semibold",
   };
 
   const colorStyles: Record<typeof color, string> = {
     white: "text-white",
-    gray: "text-[var(--gray)]",
-    red: "text-[var(--red)]",
+    gray: "text-gray",
+    red: "text-red",
   };
 
   const Tag = variant;
