@@ -17,7 +17,7 @@ export default function Page() {
     isLoading,
     error,
   } = useSWR("top-cryptos", fetcher, {
-    refreshInterval: 60000, // 🔁 هر 60 ثانیه آپدیت میشه
+    refreshInterval: 60000, // هر 60 ثانیه آپدیت میشه
     revalidateOnFocus: false,
   });
 
@@ -26,9 +26,11 @@ export default function Page() {
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-      {cryptos.slice(0, 3).map((crypto: Crypto, i: number) => (
-        <CoinCard key={i} crypto={crypto} index={i} />
-      ))}
+      {/* {cryptos.slice(0, 3).map((crypto: Crypto, i: number) => {
+        <div className="flex gap-6 flex-wrap">
+          <CoinCard key={i} crypto={crypto} index={i} />
+        </div>;
+      })} */}
     </div>
   );
 }

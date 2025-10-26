@@ -27,8 +27,8 @@ export const CoinCard: React.FC<AnimatedCoinCardProps> = ({
       initial={{ opacity: 0, scale: 0.98 }}
       whileInView={{ opacity: 1, scale: 1 }}
       transition={{
-        duration: 0.9, // 🕊 انیمیشن طولانی‌تر و آرام‌تر
-        delay: index * 0.18, // ⏳ تاخیر موجی آهسته‌تر
+        duration: 0.9,
+        delay: Math.min((index % 13) * 0.18, 1.5),
         ease: "easeIn",
       }}
       viewport={{ once: true, amount: 0.3 }}
@@ -42,21 +42,10 @@ export const CoinCard: React.FC<AnimatedCoinCardProps> = ({
             className={isPositive ? "text-green-400" : "text-red-400"}
           >
             {isPositive ? "+" : ""}
-            {price_change_percentage_24h.toFixed(2)}%
+            {price_change_percentage_24h?.toFixed(2)}%
           </Text>
         </div>
       </div>
-      {/* 
-      <motion.div
-        initial={{ rotate: -10, opacity: 0, scale: 0.8 }}
-        whileInView={{ rotate: 0, opacity: 1, scale: 1 }}
-        transition={{
-          duration: 0.8,
-          delay: index * 0.25 + 0.2, // کمی بعد از خود کارت
-          ease: "easeOut",
-        }}
-        viewport={{ once: true }}
-      > */}
       <Image
         width={40}
         height={40}
@@ -64,7 +53,6 @@ export const CoinCard: React.FC<AnimatedCoinCardProps> = ({
         alt={name}
         className="rounded-xl"
       />
-      {/* </motion.div> */}
     </motion.div>
   );
 };
