@@ -16,9 +16,9 @@ export const Text: React.FC<TextProps> = ({
 
   const colorStyles: Record<typeof color, string> = {
     white: "text-white",
-    gray: "text-gray",
-    red: "text-red",
-    green: "text-green",
+    gray: "text-gray-600",
+    red: "text-red-500",
+    green: "text-green-700",
   };
 
   return (

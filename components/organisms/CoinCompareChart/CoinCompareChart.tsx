@@ -1,35 +1,12 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import {
-  LineChart,
-  Line,
-  XAxis,
-  YAxis,
-  Tooltip,
-  ResponsiveContainer,
-  Legend,
-} from "recharts";
+import { CoinData, CombinedData } from "./CoinCompareChart.type";
+import Title from "@/components/atoms/Title/Title";
+import { LineChartBase } from "@/components/molecules/LineChartBase/LineChartBase";
+import { p } from "framer-motion/client";
 
-// ✅ تایپ داده‌ها
-interface NormalizedPoint {
-  date: string;
-  change: number;
-}
-
-interface CoinData {
-  id: string;
-  prices: NormalizedPoint[];
-}
-
-interface CombinedData {
-  date: string;
-  bitcoin: number;
-  ethereum: number;
-  solana: number;
-}
-
-export default function CoinCompareChart() {
+export const CoinCompareChart = () => {
   const [coins, setCoins] = useState<CoinData[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -42,52 +19,22 @@ export default function CoinCompareChart() {
       });
   }, []);
 
-  if (loading) return <div className="text-center py-8">Loading chart...</div>;
+  if (loading) return <div>loading...</div>;
   if (!coins.length) return <div>No data available</div>;
 
-  // ✅ تایپ‌شده و امن
-  const combinedData: CombinedData[] = coins[0].prices.map((_, index) => ({
-    date: coins[0].prices[index].date,
-    bitcoin: coins[0].prices[index].change,
-    ethereum: coins[1]?.prices[index]?.change ?? 0,
-    solana: coins[2]?.prices[index]?.change ?? 0,
+  const combinedData: CombinedData[] = coins[0].prices.map((_, i) => ({
+    date: coins[0].prices[i].date,
+    bitcoin: coins[0].prices[i].change,
+    ethereum: coins[1]?.prices[i]?.change ?? 0,
+    solana: coins[2]?.prices[i]?.change ?? 0,
   }));
 
   return (
-    <div className="w-full h-[400px] bg-white dark:bg-neutral-900 p-4 rounded-2xl shadow">
-      <h2 className="text-lg font-semibold mb-3 text-gray-800 dark:text-gray-100">
+    <div className="bg-white dark:bg-zinc-800 p-4 rounded-2xl shadow w-full">
+      <Title variant="h2" className="mb-3">
         Crypto 7-Day Performance (%)
-      </h2>
-
-      <ResponsiveContainer width="100%" height="90%">
-        <LineChart data={combinedData}>
-          <XAxis dataKey="date" />
-          <YAxis unit="%" />
-          <Tooltip formatter={(value: number) => `${value.toFixed(2)}%`} />
-          <Legend />
-          <Line
-            type="monotone"
-            dataKey="bitcoin"
-            stroke="#f7931a"
-            strokeWidth={2}
-            dot={false}
-          />
-          <Line
-            type="monotone"
-            dataKey="ethereum"
-            stroke="#3c3c3d"
-            strokeWidth={2}
-            dot={false}
-          />
-          <Line
-            type="monotone"
-            dataKey="solana"
-            stroke="#14f195"
-            strokeWidth={2}
-            dot={false}
-          />
-        </LineChart>
-      </ResponsiveContainer>
+      </Title>
+      <LineChartBase data={combinedData} />
     </div>
   );
-}
+};

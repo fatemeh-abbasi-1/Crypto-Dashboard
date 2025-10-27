@@ -13,12 +13,12 @@ export const Icon: React.FC<IconProps> = ({
     "flex items-center justify-center transition-colors duration-200 cursor-pointer";
 
   const variantStyles: Record<typeof variant, string> = {
-    default: "text-gray-300",
+    default: "text-gray-600",
     filled: `
       bg-white/5
-      text-blue-200
+      text-sky-50
       rounded-full p-2
-      hover:bg-blue hover:text-white
+      hover:bg-blue-600 hover:text-sky-50
     `,
   };
 

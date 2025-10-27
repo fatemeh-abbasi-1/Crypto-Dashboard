@@ -12,13 +12,17 @@ const Header: React.FC<HeaderProps> = ({ currentPage }) => {
   return (
     <header
       className={clsx(
-        "bg-transparent flex items-center justify-between w-full px-6 py-6"
+        "bg-transparent flex items-center justify-between w-full px-6 py-6 shadow-xl"
       )}
     >
       <div className="flex flex-col">
-        <Text size="small" color="gray">
-          Pages / {currentPage}
-        </Text>
+        <div className="flex gap-1">
+          <Text size="small" color="gray">
+            Pages /
+          </Text>
+          <Text size="small">{currentPage}</Text>
+        </div>
+
         <Text size="medium">{currentPage}</Text>
       </div>
 

@@ -5,13 +5,11 @@ import useSWR from "swr";
 import Text from "@/components/atoms/Text/Text";
 import CoinCard from "@/components/molecules/CoinCard/CoinCard";
 import Spinner from "@/components/atoms/Spinner/Spinner";
-import CoinCompareChart from "@/components/organisms/CoinCompareChart/CoinCompareChart";
-
+import { CoinCompareChart } from "@/components/organisms/CoinCompareChart/CoinCompareChart";
 import { fetchCoins } from "@/services/cryptoService";
 import { Crypto } from "@/types";
-import { section } from "framer-motion/client";
 
-const fetcher = () => fetchCoins(1, 3);
+const fetcher = () => fetchCoins(1, 4);
 
 export default function Page() {
   const {
@@ -28,7 +26,7 @@ export default function Page() {
 
   return (
     <section className="flex flex-col gap-10">
-      <div className="flex justify-around">
+      <div className="flex justify-between">
         {cryptos?.slice(0, 3).map((crypto: Crypto, i: number) => (
           <CoinCard key={i} crypto={crypto} index={i} />
         ))}

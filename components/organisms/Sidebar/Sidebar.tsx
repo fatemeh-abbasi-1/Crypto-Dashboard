@@ -7,29 +7,22 @@ import { SidebarItem } from "@/components/molecules/SidebarItem/SidebarItem";
 import Title from "@/components/atoms/Title/Title";
 import {
   HiOutlineHome,
-  HiOutlineChartBar,
   HiOutlineCreditCard,
   HiOutlineCog,
   HiOutlineUser,
   HiOutlineLogin,
   HiOutlineUserAdd,
 } from "react-icons/hi";
+import { BsCoin } from "react-icons/bs";
+
 import Text from "@/components/atoms/Text/Text";
 
 export const Sidebar: React.FC = () => {
   return (
-    <aside className="bg-zinc-800 w-[310px] h-screen flex flex-col items-center pt-7">
-      <Title variant="h2" className="mb-7">
-        VISION UI FREE
-      </Title>
-      <Image
-        src={"./line.svg"}
-        alt="line-image"
-        width={200}
-        height={5}
-        className="mb-5"
-      />
-      <div className="flex flex-col gap-1">
+    <aside className="bg-neutral-900 w-[300px] h-screen flex flex-col gap-6 items-center pt-8 shadow-2xl">
+      <Title variant="h2">VISION UI FREE</Title>
+      <Image src={"./line.svg"} alt="line-image" width={200} height={5} />
+      <div className="flex flex-col gap-2 w-56 ">
         <SidebarItem
           icon={HiOutlineHome}
           label="Home"
@@ -38,7 +31,7 @@ export const Sidebar: React.FC = () => {
           variant="filled"
         />
         <SidebarItem
-          icon={HiOutlineChartBar}
+          icon={BsCoin}
           label="Coins"
           href="/coins"
           variant="filled"
@@ -57,8 +50,10 @@ export const Sidebar: React.FC = () => {
         />
       </div>
 
-      <div className="mt-6 flex flex-col gap-1.5">
-        <Text className="ml-6">Account Page</Text>
+      <div className="flex flex-col gap-2">
+        <Text className="ml-5" size="medium">
+          ACCOUNT PAGE
+        </Text>
 
         <SidebarItem
           icon={HiOutlineUser}
