@@ -1,17 +1,29 @@
-import React from "react";
+"use client";
 
-const Spinner = () => {
+import { motion } from "framer-motion";
+
+const Spinner: React.FC = ({
+  
+}) => {
   return (
-    <div className="flex items-center justify-center p-4">
-      <div role="status" aria-live="polite" className="flex items-end gap-2">
-        <span className="sr-only">در حال بارگذاری…</span>
-
-        <span className="block w-2 h-5 md:h-9 rounded-full bg-gradient-to-t from-white to-white/90 animate-bounce [animation-delay:0s] [animation-duration:700ms]"></span>
-
-        <span className="block w-2 h-7 md:h-9 rounded-full bg-gradient-to-t from-white to-white/90 animate-bounce [animation-delay:120ms] [animation-duration:700ms]"></span>
-
-        <span className="block w-2 h-6 md:h-10 rounded-full bg-gradient-to-t from-white to-white/90 animate-bounce [animation-delay:240ms] [animation-duration:700ms]"></span>
-      </div>
+    <div className="flex items-center justify-center w-full h-full">
+      <motion.div
+        className="rounded-full"
+        style={{
+          width: 20,
+          height: 20,
+          backgroundColor: "white",
+        }}
+        animate={{
+          scale: [1, 1.4, 1],
+          opacity: [0.8, 1, 0.8],
+        }}
+        transition={{
+          duration: 1.2,
+          repeat: Infinity,
+          ease: "easeInOut",
+        }}
+      />
     </div>
   );
 };

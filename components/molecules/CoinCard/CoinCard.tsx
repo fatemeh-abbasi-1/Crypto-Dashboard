@@ -20,8 +20,8 @@ export const CoinCard: React.FC<AnimatedCoinCardProps> = ({
   return (
     <motion.div
       className="
-        w-[400px] h-28 px-6 rounded-2xl flex justify-between items-center
-        bg-gradient-3 hover:scale-[1.02]
+        bg-zinc-800 w-[400px] h-28 px-6 rounded-2xl flex justify-between items-center
+       hover:scale-[1.02]
         transition-transform duration-300 ease-in-out
       "
       initial={{ opacity: 0, scale: 0.98 }}

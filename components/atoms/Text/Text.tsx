@@ -4,7 +4,7 @@ import clsx from "clsx";
 
 export const Text: React.FC<TextProps> = ({
   size = "medium", // small | medium | large
-  color = "white", // white | gray | red
+  color = "white", // white | gray | red | green
   children,
   className,
 }) => {
@@ -16,8 +16,9 @@ export const Text: React.FC<TextProps> = ({
 
   const colorStyles: Record<typeof color, string> = {
     white: "text-white",
-    gray: "text-[var(--gray)]",
-    red: "text-[var(--red)]",
+    gray: "text-gray",
+    red: "text-red",
+    green: "text-green",
   };
 
   return (

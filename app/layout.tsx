@@ -26,18 +26,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`bg-stone-900 ${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <div className="flex h-screen w-full overflow-hidden px-2">
-          {/* Sidebar چپ */}
+        <div className="flex h-screen w-full overflow-hidden">
           <Sidebar />
-
-          {/* بخش راست: Header بالا و children وسط */}
           <div className="flex flex-col flex-1 h-full ">
-            {/* Header */}
             <Header currentPage="Home" />
-
-            {/* Main Content */}
             <main className="flex-1 overflow-x-hidden overflow-y-auto p-6 ">
               {children}
             </main>

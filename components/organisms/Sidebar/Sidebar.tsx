@@ -18,7 +18,7 @@ import Text from "@/components/atoms/Text/Text";
 
 export const Sidebar: React.FC = () => {
   return (
-    <aside className="bg-gradient-1 w-[280px] h-screen flex flex-col items-center pt-7">
+    <aside className="bg-zinc-800 w-[310px] h-screen flex flex-col items-center pt-7">
       <Title variant="h2" className="mb-7">
         VISION UI FREE
       </Title>
