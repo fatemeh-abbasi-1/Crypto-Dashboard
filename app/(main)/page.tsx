@@ -5,7 +5,8 @@ import useSWR from "swr";
 import Text from "@/components/atoms/Text/Text";
 import CoinCard from "@/components/molecules/CoinCard/CoinCard";
 import Spinner from "@/components/atoms/Spinner/Spinner";
-import { CoinCompareChart } from "@/components/organisms/CoinCompareChart/CoinCompareChart";
+import CoinCompareChart from "@/components/organisms/CoinCompareChart/CoinCompareChart";
+
 import { fetchCoins } from "@/services/cryptoService";
 import { Crypto } from "@/types";
 

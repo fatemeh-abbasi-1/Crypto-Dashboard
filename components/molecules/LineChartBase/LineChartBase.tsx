@@ -2,20 +2,20 @@
 
 import {
   LineChart,
-  Line,
   XAxis,
   YAxis,
   Tooltip,
   ResponsiveContainer,
   Legend,
 } from "recharts";
-import { CombinedData } from "./LineChatBase.type";
+import { LineChartAtom } from "@/components/atoms/LineChartAtom/LineChartAtom";
+import { CombinedData } from "@/components/organisms/CoinCompareChart/CoinCompareChart.type";
 
-interface Props {
+interface LineChartBaseProps {
   data: CombinedData[];
 }
 
-export const LineChartBase = ({ data }: Props) => {
+export const LineChartBase = ({ data }: LineChartBaseProps) => {
   return (
     <ResponsiveContainer width="100%" height={350}>
       <LineChart data={data}>
@@ -23,27 +23,10 @@ export const LineChartBase = ({ data }: Props) => {
         <YAxis unit="%" />
         <Tooltip formatter={(v: number) => `${v.toFixed(2)}%`} />
         <Legend />
-        <Line
-          type="monotone"
-          dataKey="bitcoin"
-          stroke="#f7931a"
-          strokeWidth={2}
-          dot={false}
-        />
-        <Line
-          type="monotone"
-          dataKey="ethereum"
-          stroke="#3c3c3d"
-          strokeWidth={2}
-          dot={false}
-        />
-        <Line
-          type="monotone"
-          dataKey="solana"
-          stroke="#14f195"
-          strokeWidth={2}
-          dot={false}
-        />
+
+        <LineChartAtom dataKey="bitcoin" color="#f7931a" name="Bitcoin" />
+        <LineChartAtom dataKey="ethereum" color="#f57de5" name="Ethereum" />
+        <LineChartAtom dataKey="solana" color="#14f195" name="Solana" />
       </LineChart>
     </ResponsiveContainer>
   );

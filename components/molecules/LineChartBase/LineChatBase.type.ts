@@ -4,3 +4,7 @@ export interface CombinedData {
   ethereum: number;
   solana: number;
 }
+
+export interface Data {
+  data: CombinedData[];
+}

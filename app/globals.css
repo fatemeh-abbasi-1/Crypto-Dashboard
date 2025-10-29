@@ -1,6 +1,6 @@
 @import "tailwindcss";
 
-:root {
+/* :root {
   --gradient-1: linear-gradient(135deg, #060b26 94%, #1a1f37 0%);
   --gradient-2: linear-gradient(135deg, #060b28 74%, #0a0e23 71%);
   --gradient-3: linear-gradient(
@@ -9,17 +9,7 @@
     rgba(15, 18, 38, 1) 0%,
     rgba(51, 56, 79, 1) 57%
   );
-}
-
-.bg-gradient-1 {
-  background: var(--gradient-1);
-}
-.bg-gradient-2 {
-  background: var(--gradient-2);
-}
-.bg-gradient-3 {
-  background: var(--gradient-3);
-}
+} */
 
 html,
 body {

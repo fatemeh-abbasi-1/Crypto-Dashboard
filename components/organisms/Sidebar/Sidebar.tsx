@@ -19,7 +19,7 @@ import Text from "@/components/atoms/Text/Text";
 
 export const Sidebar: React.FC = () => {
   return (
-    <aside className="bg-neutral-900 w-[300px] h-screen flex flex-col gap-6 items-center pt-8 shadow-2xl">
+    <aside className="bg-neutral-800 w-[300px] h-screen flex flex-col gap-6 items-center pt-8 shadow-2xl">
       <Title variant="h2">VISION UI FREE</Title>
       <Image src={"./line.svg"} alt="line-image" width={200} height={5} />
       <div className="flex flex-col gap-2 w-56 ">
