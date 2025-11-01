@@ -7,7 +7,7 @@ const SearchBox = () => {
       <input
         type="text"
         placeholder="Type here..."
-        className="bg-zinc-800 text-gray-600 text-sm px-9 py-1.5 rounded-lg border border-gray-300 outline-none placeholder-gray"
+        className="bg-transparent text-gray-100 text-sm px-9 py-1.5 rounded-lg border border-gray-700 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 outline-none placeholder-gray"
       />
     </div>
   );
