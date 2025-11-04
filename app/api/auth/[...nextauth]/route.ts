@@ -1,33 +1,62 @@
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
+import GoogleProvider from "next-auth/providers/google";
+import { getFirestore, doc, getDoc, setDoc } from "firebase/firestore";
+import { db } from "@/lib/firebase";
+import { compare } from "bcryptjs";
 
 const handler = NextAuth({
   providers: [
     CredentialsProvider({
-      name: "Credentials",
+      name: "credentials",
       credentials: {
         email: { label: "Email", type: "email" },
         password: { label: "Password", type: "password" },
       },
-      async authorize(credentials) {
-        const { email, password } = credentials ?? {};
+      async authorize(credentials, req) {
+        if (!credentials?.email || !credentials?.password) return null;
 
-        // اینجا قراره بعداً وصلش کنیم به دیتابیس
-        // فعلاً برای تست:
-        if (email === "test@example.com" && password === "123456") {
-          return { id: "1", name: "Test User", email: "test@example.com" };
-        }
+        const { email, password } = credentials;
 
-        return null;
+        const userRef = doc(db, "users", email);
+        const userSnap = await getDoc(userRef);
+        if (!userSnap.exists()) throw new Error("User not found");
+
+        const userData = userSnap.data();
+
+        const isValid = await compare(password, userData.passwordHash);
+        if (!isValid) throw new Error("Invalid credentials");
+
+        return { id: email, name: userData.name, email };
       },
     }),
+    GoogleProvider({
+      clientId: process.env.GOOGLE_CLIENT_ID!,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
+    }),
   ],
-  session: {
-    strategy: "jwt",
+
+  callbacks: {
+    async signIn({ user, account }) {
+      if (account?.provider === "google") {
+        const ref = doc(db, "users", user.email!);
+        const snap = await getDoc(ref);
+        if (!snap.exists()) {
+          await setDoc(ref, {
+            name: user.name,
+            email: user.email,
+            provider: "google",
+          });
+        }
+      }
+      return true;
+    },
+    async session({ session }) {
+      return session;
+    },
   },
-  pages: {
-    signIn: "/login",
-  },
+
+  session: { strategy: "jwt" },
 });
 
 export { handler as GET, handler as POST };

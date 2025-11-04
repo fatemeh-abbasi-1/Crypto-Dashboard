@@ -1,18 +1,42 @@
-import React from "react";
+"use client";
+
+import React, { InputHTMLAttributes, useId } from "react";
 import clsx from "clsx";
 
-import { InputProps } from "./Input.types";
+interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
+  label?: string;
+  error?: string;
+}
 
-const Input: React.FC<InputProps> = ({ hasError, isInvalid, className }) => {
+const Input: React.FC<InputProps> = ({ label, error, className, ...props }) => {
+  const id = useId();
+
   return (
-    <input
-      className={clsx(
-        "w-full rounded-xl bg-transparent border border-gray-700 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 px-3 py-2 text-gray-100 placeholder-gray-500 outline-none transition-all",
-        (hasError || isInvalid) && "border-red-500",
-        className
+    <div className="relative w-full">
+      <input
+        id={id}
+        placeholder=" "
+        className={clsx(
+          "peer w-full rounded-md border border-purple-500 bg-transparent px-3 pt-5 pb-2 text-sm text-white placeholder-transparent focus:border-purple-400 focus:outline-none",
+          error && "border-red-500 focus:border-red-500",
+          className
+        )}
+        {...props}
+      />
+      <label
+        htmlFor={id}
+        className={clsx(
+          "absolute left-3 top-1 text-sm text-purple-300 transition-all duration-200",
+          "peer-placeholder-shown:top-3.5 peer-placeholder-shown:text-gray-400 peer-placeholder-shown:text-sm",
+          "peer-focus:top-1 peer-focus:text-xs peer-focus:text-gray-100 font-bold"
+        )}
+      >
+        {label}
+      </label>
+      {error && (
+        <span className="mt-1 block text-xs text-red-500">{error}</span>
       )}
-    />
+    </div>
   );
 };
-
 export default Input;

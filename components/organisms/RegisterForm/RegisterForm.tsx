@@ -1,49 +1,88 @@
-import React from "react";
+"use client";
 
-import LabeledInput from "@/components/molecules/LabeledInput/LabeledInput";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useState } from "react";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { setDoc, doc } from "firebase/firestore";
+import { auth, db } from "@/lib/firebase";
+import { signIn } from "next-auth/react";
+
+import Input from "@/components/atoms/Input/Input";
 import Button from "@/components/atoms/Button/Button";
-import Text from "@/components/atoms/Text/Text";
-import Title from "@/components/atoms/Title/Title";
 
-const RegisterForm: React.FC = () => {
+const schema = z.object({
+  email: z.string().email(),
+  password: z.string().min(6),
+});
+
+type FormData = z.infer<typeof schema>;
+
+const RegisterForm = () => {
+  const [loading, setLoading] = useState(false);
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<FormData>({
+    resolver: zodResolver(schema),
+  });
+
+  const onSubmit = async (data: FormData) => {
+    try {
+      setLoading(true);
+      const userCred = await createUserWithEmailAndPassword(
+        auth,
+        data.email,
+        data.password
+      );
+
+      await setDoc(doc(db, "users", data.email), {
+        email: data.email,
+        createdAt: new Date(),
+      });
+
+      await signIn("credentials", {
+        email: data.email,
+        password: data.password,
+        redirect: true,
+        callbackUrl: "/dashboard",
+      });
+    } catch (e) {
+      console.error(e);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
-    <div className="max-w-md w-full mx-auto flex flex-col items-center">
-      <Title variant="h1">Welcome!</Title>
-      <Text size="small" className="mb-6 text-center">
-        Use these awesome forms to login or create new account in your project
-        for free.
-      </Text>
-
-      <form className="w-full space-y-4">
-        <LabeledInput id="name" label="Name" placeholder="Your full name" />
-        <LabeledInput
-          id="email"
-          label="Email"
-          placeholder="Your email address"
-        />
-        <LabeledInput
-          id="password"
-          label="Password"
-          type="password"
-          placeholder="Your password"
-        />
-        <div className="flex items-center justify-between">
-          <label className="flex items-center space-x-2 text-gray-400 text-sm">
-            <input type="checkbox" className="accent-blue-500" />
-            <span>Remember me</span>
-          </label>
-        </div>
-        <Button size="large" className="w-full">
-          Sign up
-        </Button>
-      </form>
-
-      <div className="flex gap-2 mt-6">
-        <Text>Already have an account?</Text>
-        <Text className="font-bold">Sign In</Text>
-      </div>
-    </div>
+    <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 w-full">
+      <Input
+        label="Email"
+        type="email"
+        {...register("email")}
+        error={errors.email?.message}
+      />
+      <Input
+        label="Password"
+        type="password"
+        {...register("password")}
+        error={errors.password?.message}
+      />
+      <Button type="submit" size="large" className="w-full" disabled={loading}>
+        {loading ? "Loading..." : "Sign Up"}
+      </Button>
+      <Button
+        type="button"
+        onClick={() => signIn("google", { callbackUrl: "/dashboard" })}
+        className="w-full bg-red-500"
+      >
+        Continue with Google
+      </Button>
+    </form>
   );
 };
 
 export default RegisterForm;
+//JLpHg2c9yL/xb+CvyQVHFXqDjXEdnlbUNkGEAk/SnfU=

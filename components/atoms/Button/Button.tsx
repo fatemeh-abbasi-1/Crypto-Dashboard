@@ -1,23 +1,24 @@
 import React from "react";
 import clsx from "clsx";
-
 import { ButtonProps } from "./Button.types";
 
 const Button: React.FC<ButtonProps> = ({
   size = "large",
   className,
   children,
+  ...props // 👈 این خیلی مهمه، برای اینکه onClick و type منتقل بشن
 }) => {
   const sizeClasses = {
-    small: "w-[110px] h-[35px] text-sm", // اندازه کوچک
-    large: "w-[350px] h-[45px] text-base", // اندازه بزرگ
+    small: "w-[110px] h-[35px] text-sm",
+    large: "w-[350px] h-[45px] text-base",
   };
 
   return (
     <button
+      {...props} // 👈 تمام رفتارهای استاندارد HTML منتقل می‌شن
       className={clsx(
-        "bg-blue-600 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50",
-        sizeClasses[size], // استفاده از سایز
+        "bg-blue-600 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 transition-all",
+        sizeClasses[size],
         className
       )}
     >
@@ -25,4 +26,5 @@ const Button: React.FC<ButtonProps> = ({
     </button>
   );
 };
+
 export default Button;
