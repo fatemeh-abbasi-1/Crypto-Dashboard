@@ -12,7 +12,6 @@
     "@hookform/resolvers": "^5.2.2",
     "bcryptjs": "^3.0.3",
     "clsx": "^2.1.1",
-    "firebase": "^12.5.0",
     "framer-motion": "^12.23.24",
     "next": "15.5.4",
     "next-auth": "^4.24.13",
