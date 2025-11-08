@@ -1,6 +1,5 @@
 import { NextResponse } from "next/server";
 
-// ✅ تعریف دقیق type داده‌ها
 interface PricePoint {
   date: string;
   price: number;
@@ -31,7 +30,6 @@ export async function GET() {
         if (!res.ok) throw new Error(`Failed to fetch ${id}`);
         const data = await res.json();
 
-        // 🧩 قیمت خام
         const prices: PricePoint[] = data.prices.map(
           ([timestamp, price]: [number, number]) => ({
             date: new Date(timestamp).toLocaleDateString("en-US", {
@@ -42,7 +40,6 @@ export async function GET() {
           })
         );
 
-        // ✅ نرمال‌سازی به درصد تغییر
         const basePrice = prices[0].price;
         const normalized: NormalizedPoint[] = prices.map((p) => ({
           date: p.date,

@@ -16,10 +16,8 @@ export default function Page() {
   const [loading, setLoading] = useState(false);
   const [end, setEnd] = useState(false);
 
-  // ✅ delay قابل کنترل از state
   const [delay, setDelay] = useState(2000);
 
-  // تابع getData بیرون useEffect، با useCallback تا وابسته به page باشه
   const getData = useCallback(async () => {
     if (loading || end) return;
     setLoading(true);
@@ -39,7 +37,6 @@ export default function Page() {
     }
   }, [page, loading, end]);
 
-  // useEffect فقط مسئول اجرای delayed fetch وقتی inView شد
   useEffect(() => {
     if (!inView || loading || end) return;
 

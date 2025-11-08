@@ -6,7 +6,7 @@ const Button: React.FC<ButtonProps> = ({
   size = "large",
   className,
   children,
-  ...props // 👈 این خیلی مهمه، برای اینکه onClick و type منتقل بشن
+  ...props
 }) => {
   const sizeClasses = {
     small: "w-[110px] h-[35px] text-sm",
@@ -17,7 +17,7 @@ const Button: React.FC<ButtonProps> = ({
     <button
       {...props} // 👈 تمام رفتارهای استاندارد HTML منتقل می‌شن
       className={clsx(
-        "bg-blue-600 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 transition-all",
+        "bg-purple-500 text-white font-semibold rounded-lg shadow-md hover:bg-purple-800 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 transition-all ",
         sizeClasses[size],
         className
       )}

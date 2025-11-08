@@ -12,6 +12,7 @@ export default function MainLayout({
       <div className="flex h-screen w-full overflow-hidden">
         <Sidebar />
         <div className="flex flex-col flex-1 h-full">
+          {/* Header خودش Client هست، پس لازم نیست layout client بشه */}
           <Header currentPage="Home" />
           <main className="flex-1 overflow-x-hidden overflow-y-auto p-15">
             {children}

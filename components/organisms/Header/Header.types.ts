@@ -2,5 +2,5 @@
 
 export interface HeaderProps {
   /** نام صفحه‌ی فعلی، مثلا "Dashboard" یا "Billing" */
-  currentPage: string;
+  currentPage?: string;
 }
