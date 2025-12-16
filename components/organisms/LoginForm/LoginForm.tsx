@@ -36,7 +36,6 @@ const LoginForm = () => {
     if (result?.error) {
       alert("❌ Invalid email or password");
     } else {
-      // ✅ بعد از لاگین موفق، برو به صفحه اصلی
       window.location.href = "/";
     }
   };
@@ -44,7 +43,7 @@ const LoginForm = () => {
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className="flex flex-col gap-3 p-6 bg-transparent"
+      className="flex flex-col gap-6 p-6 bg-transparent"
     >
       <Title>Sign In</Title>
 

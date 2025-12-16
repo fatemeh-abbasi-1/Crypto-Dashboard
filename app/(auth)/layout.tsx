@@ -6,7 +6,7 @@ export default function AuthLayout({
 }) {
   return (
     <div className="flex flex-row min-h-screen">
-      <div className="w-1/2 h-screen bg-cover bg-center bg-[url('/image.png')]" />
+      <div className="w-1/2 h-screen bg-cover bg-center bg-[url('/image.svg')]" />
       <div className="flex-1 flex items-center justify-center">{children}</div>
     </div>
   );

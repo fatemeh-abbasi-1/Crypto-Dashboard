@@ -15,7 +15,7 @@ const Button: React.FC<ButtonProps> = ({
 
   return (
     <button
-      {...props} // 👈 تمام رفتارهای استاندارد HTML منتقل می‌شن
+      {...props}
       className={clsx(
         "bg-purple-500 text-white font-semibold rounded-lg shadow-md hover:bg-purple-800 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 transition-all ",
         sizeClasses[size],

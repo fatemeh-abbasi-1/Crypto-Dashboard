@@ -1,16 +1,11 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Inter } from "next/font/google";
 import "./globals.css";
 
 import NextAuthProvider from "@/components/providers/SessionProvider";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const inter = Inter({
+  variable: "--font-inter",
   subsets: ["latin"],
 });
 
@@ -27,7 +22,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`bg-neutral-800 ${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`bg-neutral-800 ${inter.variable} antialiased font-sans`}
       >
         <NextAuthProvider>{children}</NextAuthProvider>
       </body>

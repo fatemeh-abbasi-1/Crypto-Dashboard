@@ -4,6 +4,7 @@ import React from "react";
 import clsx from "clsx";
 import Image from "next/image";
 import { signOut, useSession } from "next-auth/react";
+import { IoPerson } from "react-icons/io5";
 
 import { HeaderProps } from "./Header.types";
 import Text from "@/components/atoms/Text/Text";
@@ -35,14 +36,38 @@ const Header: React.FC<HeaderProps> = ({ currentPage }) => {
         <div className="flex items-center gap-3">
           {session ? (
             <>
-              <Text size="small">{session.user?.email}</Text>
+              <div className="flex flex-col items-end">
+                {session.user?.name && (
+                  <Text size="small" className="text-white">
+                    {session.user.name}
+                  </Text>
+                )}
+                <Text size="small" className="text-zinc-400">
+                  {session.user?.email}
+                </Text>
+              </div>
+
               <Button
-                onClick={() => signOut({ callbackUrl: "/login" })} // ✅ بعد از خروج به login برگرد
+                onClick={() => signOut({ callbackUrl: "/login" })}
                 className="text-sm text-zinc-400 hover:text-white transition"
                 size="small"
               >
                 Sign out
               </Button>
+
+              {session.user?.image ? (
+                <Image
+                  alt="User Avatar"
+                  width={40}
+                  height={40}
+                  src={session.user.image}
+                  className="rounded-full border border-purple-500"
+                />
+              ) : (
+                <div className="w-10 h-10 flex items-center justify-center rounded-full border border-purple-500 text-purple-500 bg-zinc-800">
+                  <IoPerson size={22} />
+                </div>
+              )}
             </>
           ) : (
             <Button
@@ -53,14 +78,6 @@ const Header: React.FC<HeaderProps> = ({ currentPage }) => {
               Sign in
             </Button>
           )}
-
-          <Image
-            alt="User Avatar"
-            width={40}
-            height={40}
-            src="/avatar.png"
-            className="rounded-full border border-purple-500"
-          />
         </div>
       </div>
     </header>

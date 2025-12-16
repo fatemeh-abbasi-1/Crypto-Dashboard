@@ -6,8 +6,13 @@ const nextConfig = {
         protocol: "https",
         hostname: "coin-images.coingecko.com",
       },
+      {
+        protocol: "https",
+        hostname: "lh3.googleusercontent.com",
+      },
     ],
   },
 };
 
 module.exports = nextConfig;
+

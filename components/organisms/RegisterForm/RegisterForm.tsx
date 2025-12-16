@@ -1,3 +1,4 @@
+
 "use client";
 
 import React from "react";
@@ -5,6 +6,7 @@ import Link from "next/link";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
+import { signIn } from "next-auth/react";
 
 import Title from "@/components/atoms/Title/Title";
 import Text from "@/components/atoms/Text/Text";
@@ -19,7 +21,7 @@ const registerSchema = z.object({
 
 type RegisterFormData = z.infer<typeof registerSchema>;
 
-const RegisterForm = () => {
+const RegisterForm: React.FC = () => {
   const {
     register,
     handleSubmit,
@@ -29,65 +31,73 @@ const RegisterForm = () => {
   });
 
   const onSubmit = async (data: RegisterFormData) => {
+    // ثبت‌نام با POST به /api/register (همان کدی که قبلا ساختیم)
     try {
       const res = await fetch("/api/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data),
       });
-
       const result = await res.json();
-
       if (!res.ok) {
         alert(result.error || "Something went wrong");
         return;
       }
-
-      alert("✅ Registered successfully! You can now log in.");
+      alert(
+        "✅ Registered successfully! You can now log in or use Google sign-in."
+      );
       window.location.href = "/";
     } catch (err) {
       console.error(err);
-      alert("Server error, please try again.");
+      alert("Server error");
     }
   };
 
+  // -------------------------------
+  // تابعی که با کلیک روی Google اجرا می‌شود
+  const handleGoogle = async () => {
+    // redirect: true (پیش‌فرض) باعث میشه NextAuth کاربری را بفرستد به Google و بعد از لاگین redirect انجام شود.
+    // می‌تونیم callbackUrl بفرستیم تا بعد از لاگین برگرده به "/" یا هر صفحه‌ای.
+    await signIn("google", { callbackUrl: "/" });
+  };
+
   return (
-    <form
-      onSubmit={handleSubmit(onSubmit)}
-      className="flex flex-col gap-3 p-6 bg-transparent"
-    >
+    <div className="flex flex-col gap-6 p-6 bg-transparent">
       <Title>Sign Up</Title>
 
-      <Input
-        type="text"
-        label="Name"
-        error={errors.name?.message}
-        {...register("name")}
-      />
-      <Input
-        type="text"
-        label="Email"
-        error={errors.email?.message}
-        {...register("email")}
-      />
-      <Input
-        type="password"
-        label="Password"
-        error={errors.password?.message}
-        {...register("password")}
-      />
-
-      <Button type="submit" disabled={isSubmitting}>
-        {isSubmitting ? "Creating..." : "Sign Up"}
+      <Button onClick={handleGoogle} className="mb-2" size="large">
+        Continue with Google
       </Button>
 
+      <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-3">
+        <Input
+          type="text"
+          label="Name"
+          error={errors.name?.message}
+          {...register("name")}
+        />
+        <Input
+          type="text"
+          label="Email"
+          error={errors.email?.message}
+          {...register("email")}
+        />
+        <Input
+          type="password"
+          label="Password"
+          error={errors.password?.message}
+          {...register("password")}
+        />
+
+        <Button type="submit" disabled={isSubmitting}>
+          {isSubmitting ? "Creating..." : "Sign Up"}
+        </Button>
+      </form>
+
       <Text>
-        Already have an account?{" "}
-        <Link href="/login" className="text-purple-400">
-          Sign In
-        </Link>
+        Already have an account? <Link href="/login"> Sign In</Link>
       </Text>
-    </form>
+    </div>
   );
 };
 
