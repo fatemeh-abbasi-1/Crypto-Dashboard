@@ -159,6 +159,12 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
     async redirect({ url, baseUrl }) {
       console.log("[NextAuth] Redirect callback:", { url, baseUrl });
       
+      // اگر url خالی یا /login است، به home redirect کن
+      if (url === baseUrl || url === `${baseUrl}/` || url === `${baseUrl}/login` || url === "/login") {
+        console.log("[NextAuth] Redirecting to home");
+        return `${baseUrl}/`;
+      }
+      
       // اگر url یک مسیر داخلی است (شروع با /)
       if (url.startsWith("/")) {
         const finalUrl = `${baseUrl}${url}`;
@@ -179,8 +185,8 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
         return url;
       } catch (error) {
         console.error("[NextAuth] Error parsing URL:", error);
-        // در صورت خطا در parse کردن URL، به baseUrl بازگردان
-        return baseUrl;
+        // در صورت خطا در parse کردن URL، به home بازگردان
+        return `${baseUrl}/`;
       }
     },
   },

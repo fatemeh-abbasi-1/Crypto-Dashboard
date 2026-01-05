@@ -5,38 +5,52 @@ import clsx from "clsx";
 import Image from "next/image";
 import { signOut, useSession } from "next-auth/react";
 import { IoPerson } from "react-icons/io5";
+import { HiMenu } from "react-icons/hi";
 
 import { HeaderProps } from "./Header.types";
 import Text from "@/components/atoms/Text/Text";
 import SearchBox from "@/components/molecules/SearchBox/SearchBox";
 import Button from "@/components/atoms/Button/Button";
 
-const Header: React.FC<HeaderProps> = ({ currentPage }) => {
+const Header: React.FC<HeaderProps> = ({ currentPage, onMenuClick }) => {
   const { data: session } = useSession();
 
   return (
     <header
       className={clsx(
-        "bg-transparent flex items-center justify-between w-full px-6 py-6 shadow-xl"
+        "bg-transparent flex flex-col md:flex-row items-start md:items-center justify-between w-full px-4 md:px-6 py-4 md:py-6 shadow-xl gap-4"
       )}
     >
-      <div className="flex flex-col">
-        <div className="flex gap-1">
-          <Text size="small" color="gray">
-            Pages /
-          </Text>
-          <Text size="small">{currentPage}</Text>
+      <div className="flex items-center gap-3 w-full md:w-auto">
+        {/* Mobile Menu Button */}
+        <button
+          onClick={onMenuClick}
+          className="md:hidden text-gray-400 hover:text-white transition-colors p-2"
+          aria-label="Open menu"
+        >
+          <HiMenu size={24} />
+        </button>
+        
+        <div className="flex flex-col">
+          <div className="flex gap-1">
+            <Text size="small" color="gray">
+              Pages /
+            </Text>
+            <Text size="small">{currentPage}</Text>
+          </div>
+          <Text size="medium">{currentPage}</Text>
         </div>
-        <Text size="medium">{currentPage}</Text>
       </div>
 
-      <div className="flex items-center gap-4">
-        <SearchBox />
+      <div className="flex flex-col md:flex-row items-start md:items-center gap-3 md:gap-4 w-full md:w-auto">
+        <div className="w-full md:w-auto">
+          <SearchBox />
+        </div>
 
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2 md:gap-3">
           {session ? (
             <>
-              <div className="flex flex-col items-end">
+              <div className="hidden md:flex flex-col items-end">
                 {session.user?.name && (
                   <Text size="small" className="text-white">
                     {session.user.name}
@@ -49,7 +63,7 @@ const Header: React.FC<HeaderProps> = ({ currentPage }) => {
 
               <Button
                 onClick={() => signOut({ callbackUrl: "/login" })}
-                className="text-sm text-zinc-400 hover:text-white transition"
+                className="text-xs md:text-sm text-zinc-400 hover:text-white transition"
                 size="small"
               >
                 Sign out
@@ -72,7 +86,7 @@ const Header: React.FC<HeaderProps> = ({ currentPage }) => {
           ) : (
             <Button
               onClick={() => (window.location.href = "/login")}
-              className="text-sm text-zinc-400 hover:text-white transition"
+              className="text-xs md:text-sm text-zinc-400 hover:text-white transition"
               size="small"
             >
               Sign in

@@ -15,16 +15,17 @@ export const SidebarItem: React.FC<SidebarItemProps> = ({
   href,
   active = false,
   variant = "default",
+  onClick,
 }) => {
   return (
-    <Link href={href}>
+    <Link href={href} onClick={onClick}>
       <div
         className={`w-52 flex items-center gap-3 px-4 py-2 rounded-xl cursor-pointer transition-all duration-300 ${
-          active ? "bg-white/10" : "hover:bg-white/5"
+          active ? "bg-purple-500/20 border border-purple-500/50" : "hover:bg-white/5"
         }`}
       >
         <Icon icon={icon} size={20} variant={variant} />
-        <Text size="medium">{label}</Text>
+        <Text size="medium" className={active ? "text-purple-300" : ""}>{label}</Text>
       </div>
     </Link>
   );

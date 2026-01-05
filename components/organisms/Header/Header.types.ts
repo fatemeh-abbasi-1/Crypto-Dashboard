@@ -2,4 +2,5 @@
 
 export interface HeaderProps {
   currentPage?: string;
+  onMenuClick?: () => void;
 }

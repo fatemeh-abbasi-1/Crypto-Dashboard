@@ -27,16 +27,19 @@ const LoginForm = () => {
   } = useForm<LoginFormData>({ resolver: zodResolver(loginSchema) });
 
   const onSubmit = async (data: LoginFormData) => {
-    const result = await signIn("credentials", {
-      redirect: false, // جلوگیری از ریدایرکت خودکار
-      email: data.email,
-      password: data.password,
-    });
+    try {
+      const result = await signIn("credentials", {
+        redirect: true,
+        callbackUrl: "/",
+        email: data.email,
+        password: data.password,
+      });
 
-    if (result?.error) {
-      alert("❌ Invalid email or password");
-    } else {
-      window.location.href = "/";
+      // اگر redirect: true باشد، نیازی به window.location.href نیست
+      // NextAuth خودش redirect می‌کند
+    } catch (error) {
+      console.error("Login error:", error);
+      alert("❌ Invalid email or password. Please check your credentials or sign up.");
     }
   };
 

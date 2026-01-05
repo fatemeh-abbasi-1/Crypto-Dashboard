@@ -6,4 +6,5 @@ export interface SidebarItemProps {
   href: string;
   active?: boolean;
   variant?: "default" | "filled";
+  onClick?: () => void;
 }
