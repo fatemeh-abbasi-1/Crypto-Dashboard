@@ -31,25 +31,32 @@ const RegisterForm: React.FC = () => {
   });
 
   const onSubmit = async (data: RegisterFormData) => {
-    // ثبت‌نام با POST به /api/register (همان کدی که قبلا ساختیم)
     try {
       const res = await fetch("/api/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
+        body: JSON.stringify({
+          name: data.name,
+          email: data.email,
+          password: data.password,
+        }),
       });
+      
       const result = await res.json();
+      
       if (!res.ok) {
-        alert(result.error || "Something went wrong");
+        const errorMessage = typeof result.error === 'string' 
+          ? result.error 
+          : result.error?.email?.[0] || result.error?.password?.[0] || result.error?.name?.[0] || "Something went wrong";
+        alert(`❌ ${errorMessage}`);
         return;
       }
-      alert(
-        "✅ Registered successfully! You can now log in or use Google sign-in."
-      );
-      window.location.href = "/";
+      
+      alert("✅ Registered successfully! Redirecting to login...");
+      window.location.href = "/login";
     } catch (err) {
-      console.error(err);
-      alert("Server error");
+      console.error("Registration error:", err);
+      alert("❌ Server error. Please try again.");
     }
   };
 
