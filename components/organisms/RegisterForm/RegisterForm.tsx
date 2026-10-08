@@ -1,4 +1,3 @@
-
 "use client";
 
 import React from "react";
@@ -41,19 +40,23 @@ const RegisterForm: React.FC = () => {
           password: data.password,
         }),
       });
-      
+
       const result = await res.json();
-      
+
       if (!res.ok) {
-        const errorMessage = typeof result.error === 'string' 
-          ? result.error 
-          : result.error?.email?.[0] || result.error?.password?.[0] || result.error?.name?.[0] || "Something went wrong";
+        const errorMessage =
+          typeof result.error === "string"
+            ? result.error
+            : result.error?.email?.[0] ||
+              result.error?.password?.[0] ||
+              result.error?.name?.[0] ||
+              "Something went wrong";
         alert(`❌ ${errorMessage}`);
         return;
       }
-      
+
       alert("✅ Registered successfully! Redirecting to login...");
-      window.location.href = "/login";
+      window.location.href = "/";
     } catch (err) {
       console.error("Registration error:", err);
       alert("❌ Server error. Please try again.");
@@ -72,12 +75,17 @@ const RegisterForm: React.FC = () => {
     <div className="flex flex-col gap-6 p-6 bg-transparent">
       <Title>Sign Up</Title>
 
-      <Button onClick={handleGoogle} className="mb-2" size="large">
+      <Button
+        type="button"
+        onClick={handleGoogle}
+        className="mb-2"
+        size="large"
+      >
         Continue with Google
       </Button>
 
       <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-3">
-        <Input
+        {/* <Input
           type="text"
           label="Name"
           error={errors.name?.message}
@@ -94,7 +102,7 @@ const RegisterForm: React.FC = () => {
           label="Password"
           error={errors.password?.message}
           {...register("password")}
-        />
+        /> */}
 
         <Button type="submit" disabled={isSubmitting}>
           {isSubmitting ? "Creating..." : "Sign Up"}

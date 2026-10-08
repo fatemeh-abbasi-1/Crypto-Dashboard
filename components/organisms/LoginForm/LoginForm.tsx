@@ -29,18 +29,25 @@ const LoginForm = () => {
   const onSubmit = async (data: LoginFormData) => {
     try {
       const result = await signIn("credentials", {
-        redirect: true,
-        callbackUrl: "/",
+        redirect: false,
         email: data.email,
         password: data.password,
       });
 
-      // اگر redirect: true باشد، نیازی به window.location.href نیست
-      // NextAuth خودش redirect می‌کند
+      if (result?.error) {
+        alert("❌ Invalid email or password. Please check your credentials or sign up.");
+        return;
+      }
+
+      window.location.href = "/";
     } catch (error) {
       console.error("Login error:", error);
       alert("❌ Invalid email or password. Please check your credentials or sign up.");
     }
+  };
+
+  const handleGoogle = async () => {
+    await signIn("google", { callbackUrl: "/" });
   };
 
   return (
@@ -50,6 +57,10 @@ const LoginForm = () => {
     >
       <Title>Sign In</Title>
 
+      <Button type="button" onClick={handleGoogle} className="mb-2" size="large">
+        Continue with Google
+      </Button>
+{/* 
       <Input
         type="text"
         label="Email"
@@ -61,7 +72,7 @@ const LoginForm = () => {
         label="Password"
         error={errors.password?.message}
         {...register("password")}
-      />
+      /> */}
 
       <Button type="submit" disabled={isSubmitting}>
         {isSubmitting ? "Signing in..." : "Sign In"}
