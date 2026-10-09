@@ -37,20 +37,25 @@ export default function ProfilePage() {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
-  const [message, setMessage] = useState<{ type: "success" | "error"; text: string } | null>(null);
+  const [message, setMessage] = useState<{
+    type: "success" | "error";
+    text: string;
+  } | null>(null);
   const [totalAssets, setTotalAssets] = useState(0);
   const [isEditing, setIsEditing] = useState(false);
 
   // Fetch portfolio for total assets
   const { data: portfolioData } = useSWR(
     status === "authenticated" ? "/api/portfolio" : null,
-    fetcher
+    fetcher,
   );
 
   // Fetch coin prices for calculation
   const { data: coinsData } = useSWR(
-    portfolioData?.portfolio?.length > 0 ? "/api/coins?page=1&per_page=100" : null,
-    fetcher
+    portfolioData?.portfolio?.length > 0
+      ? "/api/coins?page=1&per_page=100"
+      : null,
+    fetcher,
   );
 
   const {
@@ -79,7 +84,9 @@ export default function ProfilePage() {
       let total = 0;
       portfolioData.portfolio.forEach((item: any) => {
         const coin = coinsData.find(
-          (c: any) => c.id === item.coinId || c.symbol.toLowerCase() === item.coinSymbol.toLowerCase()
+          (c: any) =>
+            c.id === item.coinId ||
+            c.symbol.toLowerCase() === item.coinSymbol.toLowerCase(),
         );
         if (coin && item.amount > 0) {
           total += item.amount * coin.current_price;
@@ -123,9 +130,12 @@ export default function ProfilePage() {
       const result = await res.json();
 
       if (!res.ok) {
-        const errorMessage = typeof result.error === 'string' 
-          ? result.error 
-          : result.error?.email?.[0] || result.error?.name?.[0] || "Failed to update profile";
+        const errorMessage =
+          typeof result.error === "string"
+            ? result.error
+            : result.error?.email?.[0] ||
+              result.error?.name?.[0] ||
+              "Failed to update profile";
         setMessage({ type: "error", text: errorMessage });
         return;
       }
@@ -133,12 +143,15 @@ export default function ProfilePage() {
       setUser(result.user);
       setMessage({ type: "success", text: "Profile updated successfully!" });
       setIsEditing(false);
-      
+
       // Update session
       await update();
     } catch (error) {
       console.error("Error updating profile:", error);
-      setMessage({ type: "error", text: "An error occurred. Please try again." });
+      setMessage({
+        type: "error",
+        text: "An error occurred. Please try again.",
+      });
     } finally {
       setSaving(false);
     }
@@ -188,15 +201,24 @@ export default function ProfilePage() {
         {/* User Information Display */}
         <div className="mb-8 space-y-4">
           <div className="p-4 bg-neutral-800 rounded-lg">
-            <Text className="text-sm text-gray-400 mb-1">Total Assets Value</Text>
-            <Title variant="h3" className="text-2xl text-purple-400">
-              ${totalAssets.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+            <Text className="text-sm text-gray-400 mb-1">
+              Total Assets Value
+            </Text>
+            <Title variant="h2" className="text-2xl text-purple-400">
+              $
+              {totalAssets.toLocaleString("en-US", {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2,
+              })}
             </Title>
           </div>
         </div>
 
         {isEditing && (
-          <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-6">
+          <form
+            onSubmit={handleSubmit(onSubmit)}
+            className="flex flex-col gap-6"
+          >
             <div>
               <Input
                 type="text"
@@ -225,7 +247,9 @@ export default function ProfilePage() {
               >
                 <Text
                   className={
-                    message.type === "success" ? "text-green-400" : "text-red-400"
+                    message.type === "success"
+                      ? "text-green-400"
+                      : "text-red-400"
                   }
                 >
                   {message.text}
@@ -254,14 +278,12 @@ export default function ProfilePage() {
 
         <div className="mt-8 pt-8 border-t border-neutral-600">
           <Text className="text-sm text-gray-400">
-            <strong>Note:</strong> Changing your email will require you to verify
-            the new email address. Profile picture can only be changed through
-            OAuth providers.
+            <strong>Note:</strong> Changing your email will require you to
+            verify the new email address. Profile picture can only be changed
+            through OAuth providers.
           </Text>
         </div>
       </div>
     </div>
   );
 }
-
-
