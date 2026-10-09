@@ -71,7 +71,9 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
       if (account?.provider !== "google" || !user.email) return true;
 
       try {
-        const image = isGoogleProfile(profile) ? profile.picture ?? null : null;
+        const image = isGoogleProfile(profile)
+          ? (profile.picture ?? null)
+          : null;
         const existingUser = await prisma.user.findUnique({
           where: { email: user.email },
         });
@@ -111,7 +113,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
           token.name = dbUser.name;
           token.picture =
             dbUser.image ??
-            (isGoogleProfile(profile) ? profile.picture ?? null : null);
+            (isGoogleProfile(profile) ? (profile.picture ?? null) : null);
         }
         return token;
       }
