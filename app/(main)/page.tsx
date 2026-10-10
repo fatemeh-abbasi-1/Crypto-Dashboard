@@ -96,6 +96,9 @@ export default function Page() {
     });
   }
 
+
+
+  
   if (cryptosLoading) return <Spinner />;
   if (cryptosError)
     return <Text className="text-red-400">Error loading data</Text>;
