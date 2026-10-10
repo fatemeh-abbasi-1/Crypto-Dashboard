@@ -12,7 +12,12 @@ function isGoogleProfile(profile: unknown): profile is { picture?: string } {
   );
 }
 
-export const { handlers, auth, signIn, signOut } = NextAuth({
+export const {
+  handlers: { GET, POST },
+  auth,
+  signIn,
+  signOut,
+} = NextAuth({
   session: { strategy: "jwt" },
   secret: process.env.AUTH_SECRET || process.env.NEXTAUTH_SECRET,
   trustHost: true,
