@@ -75,7 +75,7 @@ export default function Page() {
     portfolioData.portfolio.forEach((item: PortfolioItem) => {
       if (item.amount > 0) {
         const coin = coinsData.find(
-          (c: any) =>
+          (c) =>
             c.id === item.coinId ||
             c.symbol.toLowerCase() === item.coinSymbol.toLowerCase(),
         );

@@ -28,7 +28,17 @@ interface User {
   image: string | null;
   createdAt: string;
 }
+type PortfolioItem = {
+  amount: number;
+  coinId: string;
+  coinSymbol: string;
+};
 
+type Coin = {
+  id: string;
+  symbol: string;
+  current_price: number;
+};
 const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
 export default function ProfilePage() {
@@ -82,9 +92,9 @@ export default function ProfilePage() {
   useEffect(() => {
     if (portfolioData?.portfolio && coinsData) {
       let total = 0;
-      portfolioData.portfolio.forEach((item: any) => {
+      portfolioData.portfolio.forEach((item: PortfolioItem) => {
         const coin = coinsData.find(
-          (c: any) =>
+          (c: Coin) =>
             c.id === item.coinId ||
             c.symbol.toLowerCase() === item.coinSymbol.toLowerCase(),
         );

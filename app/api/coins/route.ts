@@ -11,18 +11,25 @@ export async function GET(req: Request) {
     if (search && search.trim()) {
       const searchRes = await fetch(
         `https://api.coingecko.com/api/v3/search?query=${encodeURIComponent(search.trim())}`,
-        { next: { revalidate: 60 } }
+        { next: { revalidate: 60 } },
       );
 
       if (!searchRes.ok) {
         return NextResponse.json(
           { error: "Failed to search coins", status: searchRes.status },
-          { status: searchRes.status }
+          { status: searchRes.status },
         );
       }
 
-      const searchData = await searchRes.json();
-      const coinIds = searchData.coins?.slice(0, 50).map((coin: any) => coin.id).join(",") || "";
+      const searchData = (await searchRes.json()) as {
+        coins?: { id: string }[];
+      };
+
+      const coinIds =
+        searchData.coins
+          ?.slice(0, 50)
+          .map((coin) => coin.id)
+          .join(",") ?? "";
 
       if (!coinIds) {
         return NextResponse.json([]);
@@ -30,13 +37,13 @@ export async function GET(req: Request) {
 
       const marketsRes = await fetch(
         `https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=${coinIds}&order=market_cap_desc&sparkline=false`,
-        { next: { revalidate: 0 } }
+        { next: { revalidate: 0 } },
       );
 
       if (!marketsRes.ok) {
         return NextResponse.json(
           { error: "Failed to fetch coin markets", status: marketsRes.status },
-          { status: marketsRes.status }
+          { status: marketsRes.status },
         );
       }
 
@@ -47,13 +54,13 @@ export async function GET(req: Request) {
     // Normal pagination
     const res = await fetch(
       `https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=${perPage}&page=${page}&sparkline=false`,
-      { next: { revalidate: 0 } }
+      { next: { revalidate: 0 } },
     );
 
     if (!res.ok) {
       return NextResponse.json(
         { error: "Failed to fetch coins", status: res.status },
-        { status: res.status }
+        { status: res.status },
       );
     }
 
@@ -63,7 +70,7 @@ export async function GET(req: Request) {
     console.error("API error:", err);
     return NextResponse.json(
       { error: "Internal server error" },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }
