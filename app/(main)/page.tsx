@@ -74,11 +74,15 @@ export default function Page() {
   if (session && portfolioData?.portfolio && coinsData) {
     portfolioData.portfolio.forEach((item: PortfolioItem) => {
       if (item.amount > 0) {
-        const coin = coinsData.find(
-          (c) =>
-            c.id === item.coinId ||
-            c.symbol.toLowerCase() === item.coinSymbol.toLowerCase(),
-        );
+       const coin = coinsData.find(
+  (c: {
+    id: string;
+    symbol: string;
+    current_price: number;
+  }) =>
+    c.id === item.coinId ||
+    c.symbol.toLowerCase() === item.coinSymbol.toLowerCase(),
+);
         if (coin) {
           const value = item.amount * coin.current_price;
           totalPortfolioValue += value;
@@ -92,6 +96,9 @@ export default function Page() {
     });
   }
 
+
+
+  
   if (cryptosLoading) return <Spinner />;
   if (cryptosError)
     return <Text className="text-red-400">Error loading data</Text>;
