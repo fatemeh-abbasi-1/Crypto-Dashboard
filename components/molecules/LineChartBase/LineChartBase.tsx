@@ -21,9 +21,12 @@ export const LineChartBase = ({ data }: LineChartBaseProps) => {
       <LineChart data={data}>
         <XAxis dataKey="date" />
         <YAxis unit="%" />
-        <Tooltip formatter={(v: number) => `${v.toFixed(2)}%`} />
+        <Tooltip
+          formatter={(v) =>
+            typeof v === "number" ? `${v.toFixed(2)}%` : `${v ?? ""}%`
+          }
+        />{" "}
         <Legend />
-
         <LineChartAtom dataKey="bitcoin" color="#f7931a" name="Bitcoin" />
         <LineChartAtom dataKey="ethereum" color="#f57de5" name="Ethereum" />
         <LineChartAtom dataKey="solana" color="#14f195" name="Solana" />
