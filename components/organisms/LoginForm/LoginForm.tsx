@@ -35,14 +35,18 @@ const LoginForm = () => {
       });
 
       if (result?.error) {
-        alert("❌ Invalid email or password. Please check your credentials or sign up.");
+        alert(
+          "❌ Invalid email or password. Please check your credentials or sign up.",
+        );
         return;
       }
 
       window.location.href = "/";
     } catch (error) {
       console.error("Login error:", error);
-      alert("❌ Invalid email or password. Please check your credentials or sign up.");
+      alert(
+        "❌ Invalid email or password. Please check your credentials or sign up.",
+      );
     }
   };
 
@@ -57,10 +61,15 @@ const LoginForm = () => {
     >
       <Title>Sign In</Title>
 
-      <Button type="button" onClick={handleGoogle} className="mb-2" size="large">
+      <Button
+        type="button"
+        onClick={handleGoogle}
+        className="mb-2"
+        size="large"
+      >
         Continue with Google
       </Button>
-{/* 
+
       <Input
         type="text"
         label="Email"
@@ -72,7 +81,7 @@ const LoginForm = () => {
         label="Password"
         error={errors.password?.message}
         {...register("password")}
-      /> */}
+      />
 
       <Button type="submit" disabled={isSubmitting}>
         {isSubmitting ? "Signing in..." : "Sign In"}

@@ -9,17 +9,17 @@ const Button: React.FC<ButtonProps> = ({
   ...props
 }) => {
   const sizeClasses = {
-    small: "w-[110px] h-[35px] text-sm",
-    large: "w-[350px] h-[45px] text-base",
+    small: "min-h-[35px] px-3 py-2 text-sm",
+    large: "min-h-[45px] w-full max-w-[350px] px-4 py-3 text-base",
   };
 
   return (
     <button
       {...props}
       className={clsx(
-        "bg-purple-500 text-white font-semibold rounded-lg shadow-md hover:bg-purple-800 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 transition-all ",
+        "box-border inline-flex max-w-full items-center justify-center whitespace-nowrap rounded-lg bg-purple-500 font-semibold leading-normal text-white shadow-md transition-colors hover:bg-purple-800 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50",
         sizeClasses[size],
-        className
+        className,
       )}
     >
       {children}

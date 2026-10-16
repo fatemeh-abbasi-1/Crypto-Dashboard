@@ -59,12 +59,16 @@ export default function ActivitiesPage() {
     // Sort by price change
     const topGainers = [...coins]
       .filter((c) => c.price_change_percentage_24h > 0)
-      .sort((a, b) => b.price_change_percentage_24h - a.price_change_percentage_24h)
+      .sort(
+        (a, b) => b.price_change_percentage_24h - a.price_change_percentage_24h,
+      )
       .slice(0, 3);
 
     const topLosers = [...coins]
       .filter((c) => c.price_change_percentage_24h < 0)
-      .sort((a, b) => a.price_change_percentage_24h - b.price_change_percentage_24h)
+      .sort(
+        (a, b) => a.price_change_percentage_24h - b.price_change_percentage_24h,
+      )
       .slice(0, 2);
 
     // Buy suggestions
@@ -75,7 +79,7 @@ export default function ActivitiesPage() {
         "High trading volume",
         "Technical indicators show bullish trend",
       ];
-      
+
       suggestions.push({
         type: "buy",
         coin,
@@ -92,7 +96,7 @@ export default function ActivitiesPage() {
         "Risk management opportunity",
         "Market correction expected",
       ];
-      
+
       suggestions.push({
         type: "sell",
         coin,
@@ -115,9 +119,12 @@ export default function ActivitiesPage() {
 
   return (
     <div className="flex flex-col gap-8 p-6">
-      <div className="flex items-center justify-between">
-        <Title variant="h1">Trading Activities</Title>
-        <Text className="text-gray-400">
+      <div className="flex flex-col items-start gap-2 sm:flex-row sm:items-center sm:justify-between">
+        <Title variant="h1" className="break-words">
+          Trading Activities
+        </Title>
+
+        <Text className="text-gray-400 break-words">
           AI-powered suggestions based on market analysis
         </Text>
       </div>
@@ -188,7 +195,8 @@ export default function ActivitiesPage() {
                 <div>
                   <Text className="text-sm text-gray-400">Current Price</Text>
                   <Text className="font-semibold text-lg">
-                    ${activity.coin.current_price.toLocaleString("en-US", {
+                    $
+                    {activity.coin.current_price.toLocaleString("en-US", {
                       minimumFractionDigits: 2,
                       maximumFractionDigits: 6,
                     })}
@@ -217,7 +225,7 @@ export default function ActivitiesPage() {
                 }`}
                 onClick={() => {
                   alert(
-                    `${activity.type === "buy" ? "Buy" : "Sell"} ${activity.coin.name} - This is a demo feature`
+                    `${activity.type === "buy" ? "Buy" : "Sell"} ${activity.coin.name} - This is a demo feature`,
                   );
                 }}
               >
@@ -231,8 +239,8 @@ export default function ActivitiesPage() {
       {activities.length > 0 && (
         <div className="bg-purple-500/10 border border-purple-500/50 rounded-lg p-4">
           <Text className="text-sm text-purple-300">
-            💡 <strong>Note:</strong> These are AI-generated suggestions based on
-            market data. Always do your own research before making trading
+            💡 <strong>Note:</strong> These are AI-generated suggestions based
+            on market data. Always do your own research before making trading
             decisions.
           </Text>
         </div>
@@ -240,6 +248,3 @@ export default function ActivitiesPage() {
     </div>
   );
 }
-
-
-

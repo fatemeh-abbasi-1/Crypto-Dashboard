@@ -176,32 +176,38 @@ export default function ProfilePage() {
   }
 
   return (
-    <div className="flex flex-col gap-8 p-6 max-w-2xl">
+    <div className="mx-auto flex w-full min-w-0 max-w-2xl flex-col gap-6 p-3 sm:p-6">
       <Title variant="h1">Profile</Title>
 
-      <div className="bg-neutral-700 rounded-2xl p-6 shadow-lg">
-        <div className="flex items-center gap-6 mb-8">
+      <div className="min-w-0 rounded-2xl bg-neutral-700 p-4 shadow-lg sm:p-6">
+        <div className="mb-8 flex min-w-0 flex-col items-center gap-4 text-center min-[480px]:flex-row min-[480px]:items-start min-[480px]:text-left">
           {user.image ? (
             <img
               src={user.image}
               alt={user.name}
-              className="w-24 h-24 rounded-full border-2 border-purple-500"
+              className="h-24 w-24 shrink-0 rounded-full border-2 border-purple-500 object-cover"
             />
           ) : (
-            <div className="w-24 h-24 rounded-full bg-purple-500 flex items-center justify-center text-3xl font-bold">
+            <div className="flex h-24 w-24 shrink-0 items-center justify-center rounded-full bg-purple-500 text-3xl font-bold">
               {user.name.charAt(0).toUpperCase()}
             </div>
           )}
-          <div className="flex-1">
-            <Title variant="h2">{user.name}</Title>
-            <Text className="text-gray-400">{user.email}</Text>
-            <Text className="text-sm text-gray-500 mt-1">
+
+          <div className="w-full min-w-0 flex-1">
+            <Title variant="h2" className="break-words">
+              {user.name}
+            </Title>
+
+            <Text className="break-all text-gray-400">{user.email}</Text>
+
+            <Text className="mt-1 text-sm text-gray-500">
               Member since {new Date(user.createdAt).toLocaleDateString()}
             </Text>
           </div>
+
           <Button
             onClick={() => setIsEditing(!isEditing)}
-            className="w-auto px-4"
+            className="w-full px-4 min-[480px]:w-auto min-[480px]:shrink-0"
             size="small"
           >
             {isEditing ? "Cancel" : "Edit Profile"}

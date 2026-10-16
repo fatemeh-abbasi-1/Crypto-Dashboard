@@ -34,7 +34,7 @@ export default function MainLayout({
             onMenuClick={() => setSidebarOpen(true)}
           />
 
-          <main className="min-h-0 flex-1 overflow-x-hidden overflow-y-auto overscroll-y-contain p-4 md:p-8 lg:p-15">
+          <main className="min-h-0 min-w-0 flex-1 overflow-x-hidden overflow-y-auto p-3 sm:p-4 md:p-8 lg:p-15">
             {children}
           </main>
         </div>

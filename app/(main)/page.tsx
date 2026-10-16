@@ -74,15 +74,11 @@ export default function Page() {
   if (session && portfolioData?.portfolio && coinsData) {
     portfolioData.portfolio.forEach((item: PortfolioItem) => {
       if (item.amount > 0) {
-       const coin = coinsData.find(
-  (c: {
-    id: string;
-    symbol: string;
-    current_price: number;
-  }) =>
-    c.id === item.coinId ||
-    c.symbol.toLowerCase() === item.coinSymbol.toLowerCase(),
-);
+        const coin = coinsData.find(
+          (c: { id: string; symbol: string; current_price: number }) =>
+            c.id === item.coinId ||
+            c.symbol.toLowerCase() === item.coinSymbol.toLowerCase(),
+        );
         if (coin) {
           const value = item.amount * coin.current_price;
           totalPortfolioValue += value;
@@ -96,9 +92,6 @@ export default function Page() {
     });
   }
 
-
-
-  
   if (cryptosLoading) return <Spinner />;
   if (cryptosError)
     return <Text className="text-red-400">Error loading data</Text>;
@@ -118,7 +111,7 @@ export default function Page() {
 
       {/* Top 3 Coins Section */}
       <div>
-        <div className="flex items-center justify-between mb-4">
+        <div className="flex flex-col items-start gap-3 min-[400px]:flex-row min-[400px]:items-center min-[400px]:justify-between mb-4">
           <Title variant="h2">Top Cryptocurrencies</Title>
           <Link href="/coins">
             <Button size="small" className="w-auto px-4">
