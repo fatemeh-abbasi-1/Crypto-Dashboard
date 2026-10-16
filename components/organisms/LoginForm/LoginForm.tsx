@@ -70,13 +70,13 @@ const LoginForm = () => {
         Continue with Google
       </Button>
 
-      <Input
+      {/* <Input
         type="text"
         label="Email"
         error={errors.email?.message}
         {...register("email")}
-      />
-      <Input
+      /> */}
+      {/* <Input
         type="password"
         label="Password"
         error={errors.password?.message}
@@ -92,7 +92,7 @@ const LoginForm = () => {
         <Link href="/register" className="text-purple-400">
           Sign Up
         </Link>
-      </Text>
+      </Text> */}
     </form>
   );
 };

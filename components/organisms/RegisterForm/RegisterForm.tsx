@@ -84,7 +84,7 @@ const RegisterForm: React.FC = () => {
         Continue with Google
       </Button>
 
-      <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-3">
+      {/* <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-3">
         <Input
           type="text"
           label="Name"
@@ -107,7 +107,7 @@ const RegisterForm: React.FC = () => {
         <Button type="submit" disabled={isSubmitting}>
           {isSubmitting ? "Creating..." : "Sign Up"}
         </Button>
-      </form>
+      </form> */}
 
       <Text>
         Already have an account? <Link href="/login"> Sign In</Link>
